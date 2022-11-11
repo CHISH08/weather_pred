@@ -8,8 +8,8 @@
             <div class="selectlink" id="siyinfobox">
                 <div class="selectlink-control">Прогноз</div>
                 <ul>
-                    <li><a href="/">Сегодня</a></li>
-                    <li><a href="/">Завтра</a></li>
+                    <li><a href="{% url 'inf_city' city.0.city %}">Сегодня</a></li>
+                    <li><a href="{% url 'pred' city.0.city %}">Завтра</a></li>
                 </ul>
             </div>
             <script>
@@ -36,8 +36,8 @@
             });
             </script>
         </div>
-        <div class="alert alert-warning" id="box">
-            <img src="http://openweathermap.org/img/w/10d.png">
+        <div class="alert alert-warning">
+            <img src="http://openweathermap.org/img/w/{{ city.0.icon }}.png">
             <b>Температура</b> {{city.0.temp}} <b>, ощущается как</b> {{ city.0.feels_like }}<br>
             <b>Скорость ветра:</b> {{ city.0.wind_speed }} м/c<br>
             <b>Давление:</b> {{ city.0.pressure }} атм<br>

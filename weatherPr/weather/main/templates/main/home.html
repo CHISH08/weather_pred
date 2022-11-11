@@ -8,7 +8,7 @@
         <div class="prokrutka">
             {% for el in info.values %}
                 <a href="{% url 'inf_city' el.city %}" style="text-decoration: none;"><div class="alert alert-warning">
-                    <img src="http://openweathermap.org/img/w/10d.png">
+                    <img src="http://openweathermap.org/img/w/{{ el.icon }}.png">
                     <b>Город:</b> {{el.city}}<br>
                     <b>Температура</b> {{el.temp}} <b>, ощущается как</b> {{ el.feels_like }}<br>
                     <b>Скорость ветра:</b> {{ el.wind_speed }} м/c<br>
