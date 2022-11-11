@@ -1,0 +1,49 @@
+{% extends 'main/layout.html' %}
+{% block title %}{{city.0.city}}{% endblock %}
+
+{% block content%}
+    <div class="col-5 offset-2" id="right" style="margin-top: 7%">
+        <div id="cityinfobox" style="margin-bottom: 15px;">
+            <h1 style="display: inline-block;">{{city.0.city}}</h1>
+            <div class="selectlink" id="siyinfobox">
+                <div class="selectlink-control">Прогноз</div>
+                <ul>
+                    <li><a href="/">Сегодня</a></li>
+                    <li><a href="/">Завтра</a></li>
+                </ul>
+            </div>
+            <script>
+            $(function() {
+                $(".selectlink-control").click(function(){
+                    var $menu_popup = $(this).next();
+                    $menu_popup.slideToggle(200, function(){
+                        $('.selectlink ul').not($menu_popup).slideUp(200);
+                        if ($menu_popup.is(':hidden')) {
+                            $('body').removeClass('body_pointer');
+                        } else {
+                            $('body').addClass('body_pointer');
+                        }
+                    });
+                    return false;
+                });
+
+                $(document).on('click', function(e){
+                    if (!$(e.target).closest('.selectlink').length){
+                        $('body').removeClass('body_pointer');
+                        $('.selectlink ul').slideUp(200);
+                    }
+                });
+            });
+            </script>
+        </div>
+        <div class="alert alert-warning" id="box">
+            <img src="http://openweathermap.org/img/w/10d.png">
+            <b>Температура</b> {{city.0.temp}} <b>, ощущается как</b> {{ city.0.feels_like }}<br>
+            <b>Скорость ветра:</b> {{ city.0.wind_speed }} м/c<br>
+            <b>Давление:</b> {{ city.0.pressure }} атм<br>
+            {% if city.0.rain == 'Rain' %}
+                <b>Капает дождь!🥲</b>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

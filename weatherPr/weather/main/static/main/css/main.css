@@ -1,0 +1,112 @@
+{% load static %}
+
+#map {
+    margin-top: 17vh;
+    margin-left: 5vw;
+    float: left;
+    position: absolute;
+}
+
+#right {
+    float: right;
+    margin-right: 5%;
+    margin-top: 4%;
+}
+
+.offset-2 .alert-warning img {
+    height: 100px;
+    position: absolute;
+    margin-left: 57vh;
+}
+
+.offset-2 .alert-warning {
+    background: #fff;
+}
+
+header form span {
+    color: red;
+}
+
+.prokrutka {
+    overflow: auto;
+    height: 350px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.selectlink {
+	position: relative;
+	display: inline-block;
+	width: 120px;
+	text-align: left;
+	border: 1px solid black;
+}
+.selectlink-control {
+	position: relative;
+	padding: 10px 15px;
+	border: 1px solid #dcdfe6;
+	border-radius: 4px;
+	background: #fff;
+	cursor: pointer;
+}
+.selectlink-control:after {
+	content: '';
+	border: 5px solid transparent;
+	border-top: 5px solid #999;
+	position: absolute;
+	top: 50%;
+	right: 15px;
+	margin-top: -3px;
+}
+.selectlink ul {
+	display: none;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: auto;
+	max-height: 200px;
+	position: absolute;
+	top: 100%;
+	left: 0px;
+	border: 1px solid #dadada;
+	border-top: none;
+	background: #fff;
+	z-index: 9999;
+	overflow: auto;
+	user-select: none;
+}
+.selectlink li {
+	display: block;
+	margin: 0;
+	padding: 0;
+}
+.selectlink li a {
+	position: relative;
+	display: block;
+	margin: 0;
+	padding: 4px 6px 4px 15px;
+	font-weight: normal;
+	font-size: 1em;
+	line-height: 1.1;
+	cursor: pointer;
+	text-decoration: none;
+	color: #333;
+}
+.selectlink li a:hover {
+	background: #03a2ff;
+	color: #fff;
+}
+
+@media screen and (max-width: 700px) {
+	.body_pointer {
+		cursor: pointer;
+	}
+}
+
+#cityinfobox h1 {
+    margin-left: 170px;
+    margin-right: 70px;
+}
