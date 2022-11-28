@@ -4,7 +4,7 @@
 
 {% block content%}
     <div class="col-5 offset-2" id="right">
-        <h1>Информация</h1>
+        <h1 style="margin-left: 30%;">Информация</h1>
         <div class="prokrutka">
             {% for el in info.values %}
                 <a href="{% url 'inf_city' el.city %}" style="text-decoration: none;"><div class="alert alert-warning">

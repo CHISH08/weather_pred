@@ -3,6 +3,16 @@ import requests
 from .models import City
 from .forms import CityForm
 from geopy.geocoders import Nominatim
+import tensorflow as tf
+import numpy as np
+import pandas as pd
+
+def wx_input_fn(X, y=None, num_epochs=None, shuffle=True, batch_size=400):
+    return tf.compat.v1.estimator.inputs.pandas_input_fn(x=X,
+                                               y=y,
+                                               num_epochs=num_epochs,
+                                               shuffle=shuffle,
+                                               batch_size=batch_size)
 
 def city_info(request, post_id):
     appid = '001a0b6c43d9a8306b7c701171339c46'
@@ -76,15 +86,16 @@ def index(request):
             'visibility': res['visibility'],
             'rain': res['weather'][0]['main'],
         }
-        # cit_info[cit.name] = {
-        #     "city": cit.name,
-        #     'temp': 25,
-        #     'icon': 'cloud',
-        #     'feels_like': 22,
-        #     'wind_speed': 2,
-        #     'pressure': 1002,
-        #     'rain': 'Rain',
-        # }
+    # for cit in city:
+    #     cit_info[cit.name] = {
+    #         "city": cit.name,
+    #         'temp': 25,
+    #         'icon': 'cloud',
+    #         'feels_like': 22,
+    #         'wind_speed': 2,
+    #         'pressure': 1002,
+    #         'rain': 'Rain',
+    #     }
 
     context = {
         'info': cit_info,
@@ -100,10 +111,22 @@ def pred(request, post_id):
     loc = Nominatim(user_agent="GetLoc")
     getLoc = loc.geocode(post_id)
     loc = [getLoc.longitude, getLoc.latitude]
+    # url = f'https://api.openweathermap.org/data/2.5/find?q={post_id}&cnt=9&units=metric&appid={appid}'
+    # res = requests.get(url).json()['list']
+    X = pd.DataFrame(data=np.array([[10 for i in range(36)]]),
+                    columns=np.array([str(i) for i in range(36)]))
+    feature_cols = [tf.feature_column.numeric_column(col) for col in X.columns]
+    regressor = tf.estimator.DNNRegressor(feature_columns=feature_cols,
+                                          hidden_units=[50, 50],
+                                          model_dir='tf_wx_model')
+    pred = regressor.predict(input_fn=wx_input_fn(X,
+                                                  num_epochs=1,
+                                                  shuffle=False))
+    predictions = np.array([p['predictions'][0] for p in pred])
     for i in range(8):
         city[i] = {
             "city": post_id,
-            'temp': 25,
+            'temp': predictions[0],
             'icon': 'cloud',
             'feels_like': 22,
             'wind_speed': 2,

@@ -14,13 +14,15 @@
 }
 
 .offset-2 .alert-warning img {
-    height: 100px;
+    height: 160px;
     position: absolute;
-    margin-left: 57vh;
+    margin-left: 51vh;
+    margin-top: 5vw;
 }
 
 .offset-2 .alert-warning {
     background: #fff;
+    height: 43vh;
 }
 
 header form span {
@@ -106,7 +108,6 @@ a {
 	}
 }
 
-#cityinfobox h1 {
-    margin-left: 170px;
-    margin-right: 70px;
+#city_info_div b {
+    font-size: 25px;
 }
