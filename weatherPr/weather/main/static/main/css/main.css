@@ -41,16 +41,18 @@ a {
 .selectlink {
 	position: relative;
 	display: inline-block;
+	background: #ffc107;
 	width: 120px;
 	text-align: left;
-	border: 1px solid black;
+	border: 1.5px solid black;
+	border-radius: 10px 10px 10px 10px;
 }
 .selectlink-control {
 	position: relative;
 	padding: 10px 15px;
 	border: 1px solid #dcdfe6;
 	border-radius: 4px;
-	background: #fff;
+	background: #ffc107;
 	cursor: pointer;
 }
 .selectlink-control:after {
@@ -79,6 +81,7 @@ a {
 	z-index: 9999;
 	overflow: auto;
 	user-select: none;
+	margin-top: 3.5px;
 }
 .selectlink li {
 	display: block;
@@ -98,7 +101,7 @@ a {
 	color: #333;
 }
 .selectlink li a:hover {
-	background: #03a2ff;
+	background: #ffcd39;
 	color: #fff;
 }
 
@@ -109,5 +112,5 @@ a {
 }
 
 #city_info_div b {
-    font-size: 25px;
+    font-size: 20px;
 }

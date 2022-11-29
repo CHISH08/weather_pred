@@ -7,12 +7,12 @@
         <h1 style="margin-left: 30%;">Информация</h1>
         <div class="prokrutka">
             {% for el in info.values %}
-                <a href="{% url 'inf_city' el.city %}" style="text-decoration: none;"><div class="alert alert-warning">
+                <a href="{% url 'inf_city' el.city1 %}" style="text-decoration: none;"><div class="alert alert-warning">
                     <img src="http://openweathermap.org/img/w/{{ el.icon }}.png">
-                    <b>Город:</b> {{el.city}}<br>
-                    <b>Температура</b> {{el.temp}} <b>, ощущается как</b> {{ el.feels_like }}<br>
-                    <b>Скорость ветра:</b> {{ el.wind_speed }} м/c<br>
-                    <b>Давление:</b> {{ el.pressure }} атм<br>
+                    <br><b>Город: <b style="font-weight: normal; font-size: 19px;">{{ el.city2 }}</b></b><br><br>
+                    <b>Температура <b style="font-weight: normal; font-size: 19px;">{{el.temp}}</b>, ощущается как <b style="font-weight: normal; font-size: 19px;">{{ el.feels_like }}</b></b><br><br>
+                    <b>Скорость ветра: <b style="font-weight: normal; font-size: 19px;">{{ el.wind_speed }} м/c</b></b><br><br>
+                    <b>Давление: <b style="font-weight: normal; font-size: 19px;">{{ el.pressure }} атм</b></b><br><br>
                     {% if el.rain == 'Rain' %}
                         <b>Капает дождь!🥲</b>
                     {% endif %}

@@ -5,6 +5,7 @@ from .forms import CityForm
 from geopy.geocoders import Nominatim
 import tensorflow as tf
 import numpy as np
+from transliterate import translit
 import pandas as pd
 
 def wx_input_fn(X, y=None, num_epochs=None, shuffle=True, batch_size=400):
@@ -19,11 +20,13 @@ def city_info(request, post_id):
     url = f'https://api.openweathermap.org/data/2.5/find?q={post_id}&cnt=9&units=metric&appid={appid}'
     res = requests.get(url).json()['list']
     city = {}
+    name = translit(post_id, 'ru')
 
     for i in range(len(res)):
         rs = res[i]
         city[str(i * 3)] = {
             'city': post_id,
+            'name': name,
             'temp': rs['main']['temp'],
             'icon': rs['weather'][0]['icon'],
             'feels_like': rs['main']['feels_like'],
@@ -58,6 +61,7 @@ def index(request):
     error = ''
     if request.method == 'POST':
         name = request.POST['name']
+        name = translit(name, language_code='ru', reversed=True)
         form = CityForm(request.POST)
         flag = True
         if requests.get(f'https://api.openweathermap.org/data/2.5/weather?q={name}&units=metric&appid={appid}').status_code == 404:
@@ -74,10 +78,13 @@ def index(request):
     city = City.objects.all()
 
     for cit in city:
+        ct = cit.name
+        cit.name = translit(cit.name, language_code='ru', reversed=True)
         url = f'https://api.openweathermap.org/data/2.5/weather?q={cit.name}&units=metric&appid={appid}'
         res = requests.get(url).json()
         cit_info[cit.name] = {
-            'city': cit.name,
+            'city1': cit.name,
+            'city2': ct,
             'temp': res['main']['temp'],
             'icon': res['weather'][0]['icon'],
             'feels_like': res['main']['feels_like'],
@@ -123,9 +130,11 @@ def pred(request, post_id):
                                                   num_epochs=1,
                                                   shuffle=False))
     predictions = np.array([p['predictions'][0] for p in pred])
+    name = translit(post_id, 'ru')
     for i in range(8):
         city[i] = {
-            "city": post_id,
+            'city': post_id,
+            'name': name,
             'temp': predictions[0],
             'icon': 'cloud',
             'feels_like': 22,
