@@ -1,47 +1,20 @@
 {% extends 'main/layout.html' %}
-{% block title %}{{city.0.city}}{% endblock %}
+{% block title %}{{city.city}}{% endblock %}
 
 {% block content%}
     <div class="col-5 offset-2" id="right" style="margin-top: 7%">
         <div id="cityinfobox" style="margin-bottom: 15px;">
-            <h1 style="display: inline-block; margin-left: 30%;">{{city.0.name}}</h1>
-            <div class="selectlink" style="position: absolute; margin-left: 7vw; margin-top: 0.2vh;">
-                <div class="selectlink-control">Прогноз</div>
-                <ul>
-                    <li><a href="{% url 'inf_city' city.0.city %}">Сегодня</a></li>
-                    <li><a href="{% url 'pred' city.0.city %}">Завтра</a></li>
-                </ul>
-            </div>
-            <script>
-            $(function() {
-                $(".selectlink-control").click(function(){
-                    var $menu_popup = $(this).next();
-                    $menu_popup.slideToggle(200, function(){
-                        $('.selectlink ul').not($menu_popup).slideUp(200);
-                        if ($menu_popup.is(':hidden')) {
-                            $('body').removeClass('body_pointer');
-                        } else {
-                            $('body').addClass('body_pointer');
-                        }
-                    });
-                    return false;
-                });
-
-                $(document).on('click', function(e){
-                    if (!$(e.target).closest('.selectlink').length){
-                        $('body').removeClass('body_pointer');
-                        $('.selectlink ul').slideUp(200);
-                    }
-                });
-            });
-            </script>
+            <h1 style="display: inline-block; margin-left: 30%;">{{city.name}}</h1>
         </div>
         <div id="city_info_div"  class="alert alert-warning">
-            <img src="http://openweathermap.org/img/w/{{ city.0.icon }}.png">
-            <br><b>Температура <b style="font-weight: normal; font-size: 18px;">{{city.0.temp}}</b>, ощущается как <b style="font-weight: normal; font-size: 18px;">{{ city.0.feels_like }}</b></b><br><br>
-            <b>Скорость ветра: <b style="font-weight: normal; font-size: 18px;">{{ city.0.wind_speed }} м/c</b></b><br><br>
-            <b>Давление: <b style="font-weight: normal; font-size: 18px;">{{ city.0.pressure }} атм</b></b><br><br>
-            {% if city.0.rain == 'Rain' %}
+            <div id="predict"><a href="{% url city.url city.city %}">{{city.type}}</a></div>
+            {% if city.icon != 'norm' %}
+                <img src="http://openweathermap.org/img/w/{{ city.icon }}.png">
+            {% endif %}
+            <br><b>Температура <b style="font-weight: normal; font-size: 18px;">{{city.temp}}&deg;C</b>, ощущается как <b style="font-weight: normal; font-size: 18px;">{{ city.feels_like }}&deg;C</b></b><br><br>
+            <b>Скорость ветра: <b style="font-weight: normal; font-size: 18px;">{{ city.wind_speed }} м/c</b></b><br><br>
+            <b>Давление: <b style="font-weight: normal; font-size: 18px;">{{ city.pressure }} гПа</b></b><br><br>
+            {% if city.rain == 'Rain' %}
                 <b>Капает дождь!🥲</b>
             {% endif %}
         </div>

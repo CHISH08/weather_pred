@@ -10,9 +10,9 @@
                 <a href="{% url 'inf_city' el.city1 %}" style="text-decoration: none;"><div class="alert alert-warning">
                     <img src="http://openweathermap.org/img/w/{{ el.icon }}.png">
                     <br><b>Город: <b style="font-weight: normal; font-size: 19px;">{{ el.city2 }}</b></b><br><br>
-                    <b>Температура <b style="font-weight: normal; font-size: 19px;">{{el.temp}}</b>, ощущается как <b style="font-weight: normal; font-size: 19px;">{{ el.feels_like }}</b></b><br><br>
+                    <b>Температура <b style="font-weight: normal; font-size: 19px;">{{el.temp}}&deg;C</b>, ощущается как <b style="font-weight: normal; font-size: 19px;">{{ el.feels_like }}&deg;C</b></b><br><br>
                     <b>Скорость ветра: <b style="font-weight: normal; font-size: 19px;">{{ el.wind_speed }} м/c</b></b><br><br>
-                    <b>Давление: <b style="font-weight: normal; font-size: 19px;">{{ el.pressure }} атм</b></b><br><br>
+                    <b>Давление: <b style="font-weight: normal; font-size: 19px;">{{ el.pressure }} гПа</b></b><br><br>
                     {% if el.rain == 'Rain' %}
                         <b>Капает дождь!🥲</b>
                     {% endif %}
