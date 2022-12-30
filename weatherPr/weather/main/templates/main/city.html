@@ -7,11 +7,14 @@
             <h1 style="display: inline-block; margin-left: 30%;">{{city.name}}</h1>
         </div>
         <div id="city_info_div"  class="alert alert-warning">
-            <div id="predict"><a href="{% url city.url city.city %}">{{city.type}}</a></div>
+            <div id="predict">
+                <a href="{% url 'inf_city' city.city %}">Погода на сегодня</a>
+                <a id="pred_url" href="{% url 'pred' city.city %}">Предсказание</a>
+            </div>
             {% if city.icon != 'norm' %}
                 <img src="http://openweathermap.org/img/w/{{ city.icon }}.png">
             {% endif %}
-            <br><b>Температура <b style="font-weight: normal; font-size: 18px;">{{city.temp}}&deg;C</b>, ощущается как <b style="font-weight: normal; font-size: 18px;">{{ city.feels_like }}&deg;C</b></b><br><br>
+            <br><br><b>Температура <b style="font-weight: normal; font-size: 18px;">{{city.temp}}&deg;C</b>, ощущается как <b style="font-weight: normal; font-size: 18px;">{{ city.feels_like }}&deg;C</b></b><br><br>
             <b>Скорость ветра: <b style="font-weight: normal; font-size: 18px;">{{ city.wind_speed }} м/c</b></b><br><br>
             <b>Давление: <b style="font-weight: normal; font-size: 18px;">{{ city.pressure }} гПа</b></b><br><br>
             {% if city.rain == 'Rain' %}

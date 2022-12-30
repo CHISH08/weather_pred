@@ -40,8 +40,9 @@ header form span {
     float: right;
     color: #ffcd39;
     background: black;
-    margin-left: 32vw;
-    margin-top: 36vh;
+    border-radius: 5px 5px 5px 5px;
+    text-margin: 2px;
+    margin-top: 5px;
 }
 
 #predict a:hover {
@@ -51,4 +52,8 @@ header form span {
 
 #city_info_div b {
     font-size: 20px;
+}
+
+#predict #pred_url {
+    margin-left: 12.2vw;
 }
