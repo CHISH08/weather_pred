@@ -3,6 +3,7 @@ import pandas as pd
 from .api_req import *
 from .pred import *
 
+# Функция, обрабатывающая res и выбирающая из него нужные данные
 def make_dat(res):
     dat = np.array([0 for j in range(23)], dtype=float)
     dat[0] = res[0]['coord']['lon']
@@ -47,9 +48,12 @@ def make_dat(res):
         dat[22] = 0.5
 
     return np.array([dat])
+
+# Подается название города и по названию ищутся нужные нам данные(прогноз на сегодняшний день) по этому городу,
+# которые возвращаются в city_info
 def proxy_city_info(post_id):
     loc = apiGeopy(post_id)
-    rs = apiWeather_find(post_id)[0]
+    rs = apiWeather_find(post_id)[0] # Обращение к api openweather
     name = translit(post_id, 'ru')
     city = {
         'city': post_id,
@@ -69,6 +73,9 @@ def proxy_city_info(post_id):
     }
     return context
 
+# Подается названия городов и по названиям ищутся нужные нам данные
+# (прогноз на сегодняшний день) по этим городам,
+# которые возвращаются в index
 def proxy_index(city, form, error):
     cit_info = {}
     for cit in city:
@@ -95,6 +102,9 @@ def proxy_index(city, form, error):
     }
     return context
 
+# Подается название города и по названию ищутся нужные нам данные
+# (прогноз на несколько промежутков сегодняшнего дня) по этому городу,
+# которые обрабатываются, подаются в нейронную сеть и результат отправляется в pred
 def proxy_pred(post_id):
     loc = apiGeopy(post_id)
     res = apiWeather_find(post_id)
@@ -111,10 +121,10 @@ def proxy_pred(post_id):
                           '21': 'speed_2', '22': 'speed_3'})
     feature_cols = [tf.feature_column.numeric_column(col) for col in X.columns]
 
-    temp = NN_pred(X, "pred/Temperature_prediction_model_new", feature_cols).pred() - 273.15
-    # hum = NN_pred(X, "Humidity_prediction_model_new", feature_cols)
-    wind_speed = NN_pred(X, "pred/Wind_Speed_prediction_model_new", feature_cols).pred()
-    pres = NN_pred(X, "pred/Pressure_prediction_model_new", feature_cols).pred()
+    temp = NN_pred(X, "pred/Temp_model", feature_cols).pred() - 273.15
+    # hum = NN_pred(X, "Hum_model", feature_cols)
+    wind_speed = NN_pred(X, "pred/Wind_model", feature_cols).pred()
+    pres = NN_pred(X, "pred/Pres_model", feature_cols).pred()
     city = {
         'city': post_id,
         'name': name,

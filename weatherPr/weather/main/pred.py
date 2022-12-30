@@ -1,6 +1,8 @@
 import tensorflow as tf
 import numpy as np
 
+# Поведенческий паттерн(Цепочка обязанностей(chain of responsibility)): class по поданным в него dataframe
+# предсказывает погоду на завтра
 class NN_pred:
     def __init__(self,X,dr,feature_cols):
         self.X = X

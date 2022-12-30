@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 
+# class City(Порожденный class от django.db.models.Models): описывает какие группы подаются в БД
 class City(models.Model):
     name = models.CharField(max_length=30)
 
